@@ -19,6 +19,12 @@ o_winning = [
 	["7", "O", "O"]
 ]
 
+my_board = [
+	["1", "2", "3"],
+	["4", "5", "6"],
+	["7", "8", "9"]
+]
+
 def game_is_over(board):
   return has_won(board, "X") or has_won(board, "O") or len(available_moves(board)) == 0
 
@@ -53,6 +59,14 @@ def minimax(input_board, is_maximizing):
             best_value = hypothetical_value
             best_move = move
     return [best_value, best_move]
+
+# computer playing against itself
+while not game_is_over(my_board):
+ select_space(my_board, minimax(my_board, True)[1], "X")
+ print_board(my_board)
+ if not game_is_over(my_board):
+   select_space(my_board, minimax(my_board, False)[1], "O")
+   print_board(my_board)  
 
 print(minimax(x_winning, True))
 print(minimax(o_winning, True))
