@@ -1,4 +1,3 @@
-from hashlib import new
 from tic_tac_toe import *
 from copy import deepcopy
 
@@ -44,6 +43,13 @@ def minimax(input_board, is_maximizing):
     for i in available_moves(input_board):
         new_board = deepcopy(input_board)
         select_space(new_board, i, symbol)
-    return new_board
+        hypothetical_value = minimax(new_board, not is_maximizing)
+        
+        if is_maximizing == True and hypothetical_value > best_value:
+           best_value = hypothetical_value
+        elif is_maximizing == False and hypothetical_value < best_value:
+           best_value = hypothetical_value
+    return best_value
 
 print(minimax(x_winning, True))
+print(minimax(o_winning, True))
